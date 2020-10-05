@@ -8,6 +8,9 @@ interface LoggerConfig {
 }
 
 export const spawnLogger = (config: LoggerConfig) => {
+	if (config.onValue && config.offValue) throw new Error('Cannot set both onValue and offValue.');
+	if (!config.onValue && !config.offValue) throw new Error('onValue or offValue required.');
+
 	const logCondition = () =>
 		(config.onValue && process.env[config.envKey] && process.env[config.envKey] === config.onValue) ||
 		(config.offValue && process.env[config.envKey] && process.env[config.envKey] !== config.offValue);
