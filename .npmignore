@@ -1,0 +1,8 @@
+*.test.ts
+src
+build
+.cache
+jest.config.js
+.prettierrc
+tsconfig.json
+tslint.json

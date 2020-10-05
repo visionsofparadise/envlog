@@ -1,0 +1,47 @@
+{
+	"name": "envlog",
+	"version": "1.0.0",
+	"description": "A tiny console logger with an environment variable switch. (1.67KB minified)",
+	"main": "dist/index.js",
+	"scripts": {
+		"compile": "tsc",
+		"test": "jest",
+		"build": "parcel build ./dist/index.js -d build --target node --no-source-maps",
+		"patch": "npm run compile && npm run test && npm version patch && npm publish"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/visionsofparadise/envlog.git"
+	},
+	"keywords": [
+		"console",
+		"log",
+		"logger",
+		"environment",
+		"variable",
+		"switch",
+		"stage",
+		"testing",
+		"production",
+		"development"
+	],
+	"author": "visionsofparadise",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/visionsofparadise/envlog/issues"
+	},
+	"homepage": "https://github.com/visionsofparadise/envlog#readme",
+	"devDependencies": {
+		"@types/jest": "^26.0.14",
+		"jest": "^26.4.2",
+		"jest-mock-console": "^1.0.1",
+		"parcel-bundler": "^1.12.4",
+		"ts-jest": "^26.4.1",
+		"ts-node": "^9.0.0",
+		"tslint": "^6.1.3",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-plugin-prettier": "^2.3.0",
+		"typescript": "^4.0.3"
+	},
+	"dependencies": {}
+}
