@@ -6,3 +6,4 @@ jest.config.js
 .prettierrc
 tsconfig.json
 tslint.json
+README.md
