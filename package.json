@@ -1,7 +1,7 @@
 {
 	"name": "envlog",
 	"version": "1.0.0",
-	"description": "A tiny console logger with an environment variable switch. (1.67KB minified)",
+	"description": "A tiny console logger with an environment variable switch.",
 	"main": "dist/index.js",
 	"scripts": {
 		"compile": "tsc",

@@ -4,6 +4,7 @@ interface LoggerConfig {
 	envKey: string;
 	onValue?: string;
 	offValue?: string;
+	stackTraceLines?: number;
 }
 
 export const spawnLogger = (config: LoggerConfig) => {
@@ -11,10 +12,31 @@ export const spawnLogger = (config: LoggerConfig) => {
 		(config.onValue && process.env[config.envKey] && process.env[config.envKey] === config.onValue) ||
 		(config.offValue && process.env[config.envKey] && process.env[config.envKey] !== config.offValue);
 
-	const getTrace = () => ((new Error('log').stack!.split('\n')[2] || '…').match(/\(([^)]+)\)/) || [, 'not found'])[1];
+	const getPath = (i: number) =>
+		((new Error('log').stack!.split('\n')[i] || '…').match(/\(([^)]+)\)/) || [, 'not found'])[1];
 
 	const logger = (data: any, logType: 'log' | 'info' | 'warn' | 'error') => {
-		logCondition() && console[logType](util.inspect(`${getTrace()}\n	${data}`, { depth: null }));
+		var lines = '';
+		const limit = 4 + (config.stackTraceLines || 1);
+		for (var i = 4; i < limit; i++) {
+			const newLine = getPath(i);
+
+			if (newLine !== 'not found') {
+				const linebreak =
+					i === limit - 1
+						? ''
+						: `
+`;
+				lines = lines + newLine + linebreak;
+			}
+		}
+
+		if (logCondition()) {
+			console[logType](
+				`${lines}
+${util.inspect(data, { depth: null, compact: false }).toString()}`
+			);
+		}
 	};
 
 	return {
@@ -24,3 +46,5 @@ export const spawnLogger = (config: LoggerConfig) => {
 		error: (data: any) => logger(data, 'error')
 	};
 };
+
+export default spawnLogger;
